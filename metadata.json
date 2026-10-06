@@ -1,0 +1,6 @@
+{
+  "name": "Lahore AI Job Application Agent - Phase 1",
+  "description": "Phase 1 Foundation: Master CV module, PostgreSQL database schema, FastAPI REST backend, and interactive management dashboard for entry-level jobs in Lahore software houses.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

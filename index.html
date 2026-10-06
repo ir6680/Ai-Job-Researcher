@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Polyfill setter for window.fetch to allow extensions to hook fetch safely
+      (function() {
+        try {
+          var _currentFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() {
+              return _currentFetch;
+            },
+            set: function(fn) {
+              _currentFetch = fn;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          try {
+            var _protoFetch = window.fetch;
+            Object.defineProperty(Window.prototype, 'fetch', {
+              get: function() {
+                return _protoFetch;
+              },
+              set: function(fn) {
+                _protoFetch = fn;
+              },
+              configurable: true,
+              enumerable: true
+            });
+          } catch (err) {}
+        }
+
+        // Catch and prevent unhandled extension errors from bubbling
+        window.addEventListener('error', function(event) {
+          if (
+            (event.filename && event.filename.indexOf('chrome-extension://') !== -1) ||
+            (event.message && (
+              event.message.indexOf('Cannot set property fetch') !== -1 ||
+              event.message.indexOf('only a getter') !== -1
+            ))
+          ) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return true;
+          }
+        }, true);
+      })();
+    </script>
+    <title>Lahore AI Job Application Agent - Phase 1</title>
+    <meta name="description" content="Phase 1 Foundation: Master CV module, PostgreSQL database schema, FastAPI REST backend, and interactive management dashboard for entry-level jobs in Lahore software houses." />
+    <meta property="og:title" content="Lahore AI Job Application Agent - Phase 1" />
+    <meta property="og:description" content="Phase 1 Foundation: Master CV module, PostgreSQL database schema, FastAPI REST backend, and interactive management dashboard for entry-level jobs in Lahore software houses." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
